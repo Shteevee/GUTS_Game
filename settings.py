@@ -13,6 +13,5 @@ timeout_connect = None
 timeout_receive = None
 
 # other settings
-scrollback = 100
 screen_width = 800
 screen_height = 600
