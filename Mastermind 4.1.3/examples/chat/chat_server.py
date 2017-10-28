@@ -13,7 +13,7 @@ class ServerChat(MastermindServerTCP):
 
     def add_message(self, msg):
         timestamp = strftime("%H:%M:%S",gmtime())
-        
+
         self.mutex.acquire()
         self.chat = self.chat[1:] + [timestamp+" | "+msg]
         self.mutex.release()
@@ -30,7 +30,7 @@ class ServerChat(MastermindServerTCP):
     def callback_disconnect_client(self, connection_object                       ):
         #Something could go here
         return super(ServerChat,self).callback_disconnect_client(connection_object)
-    
+
     def callback_client_receive   (self, connection_object                       ):
         #Something could go here
         return super(ServerChat,self).callback_client_receive(connection_object)
