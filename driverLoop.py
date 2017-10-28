@@ -16,7 +16,8 @@ def run(gMap):
     display.init()
     screen = display.set_mode((WIN_WIDTH,WIN_HEIGHT))
     car = c.Car(5200, 4800)
-    bg = gMap
+    #bg = gMap
+    bg = gameMap.GameMap("images/map1.png")
     camera = cam.Camera(WIN_WIDTH, WIN_HEIGHT)
     entities = pygame.sprite.Group()
     entities.add(bg)
@@ -49,3 +50,5 @@ def run(gMap):
 
         display.update()
     pygame.quit()
+
+run("kasdh")
