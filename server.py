@@ -37,11 +37,11 @@ class GameServer(MastermindServerTCP):
     def callback_client_handle(self, client, data):
         if data == "which_map":
             self.log_message(str(client.address) + " asked which map")
-            self.callback_client_send(client, "images/map.png")
+            self.callback_client_send(client, settings.game_map)
 
         if data == "send_map":
             self.log_message(str(client.address) + " asked for the map")
-            map_data = open("images/map.png", "rb").read()
+            map_data = open(settings.game_map, "rb").read()
             self.callback_client_send(client, map_data)
 
         return super(GameServer, self).callback_client_handle(client, data)

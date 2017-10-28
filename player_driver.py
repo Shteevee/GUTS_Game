@@ -1,62 +1,54 @@
-from lib.Mastermind import *
-import settings
 import traceback
-import gameMap
-<<<<<<< HEAD
-import driverLoop
-=======
->>>>>>> 84e280c05835a11d5737ff5e5b9f9e32d00a6f6d
+import client
+import pygame
+from pygame.locals import *
+import settings
+import car as c
+import camera as cam
 
-class DriverClient(MastermindClientTCP):
-    def __init__(self):
-        MastermindClientTCP.__init__(self,
-                                    settings.timeout_connect,
-                                    settings.timeout_receive)
+def game_loop(game_map):
+    clock = pygame.time.Clock()
 
-    def connect(self):
-        print("Client connecting on \"" + settings.ip +
-                "\", port " + str(settings.port) + " . . .")
+    WIN_WIDTH = settings.screen_width
+    WIN_HEIGHT = settings.screen_height
 
-        try:
-            super(DriverClient, self).connect(settings.ip, settings.port)
-        except MastermindError:
-            print("Server is not running!")
+    pygame.display.init()
+    screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+    car = c.Car(800, 600)
+    camera = cam.Camera(WIN_WIDTH, WIN_HEIGHT)
+    entities = pygame.sprite.Group()
+    entities.add(game_map)
+    entities.add(car)
 
-    def wait_for_data(self):
-        return super(DriverClient, self).receive(True)
+    running = True
+    while (running):
+        clock.tick(30)
 
-    def ask_which_map(self):
-        return super(DriverClient, self).send("which_map")
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == KEYDOWN:
+                #CHANGE THESE SCALARS TO CHANGE ACCELERATIONS AND ROTATION SPEED
+                if event.key==K_RIGHT: car.updateRight(-2)
+                elif event.key==K_LEFT: car.updateLeft(2)
+                elif event.key==K_UP: car.updateUp(0.5)
+                elif event.key==K_DOWN: car.updateDown(-0.3)
 
-    def ask_for_map(self):
-        return super(DriverClient, self).send("send_map")
+        car.drive(game_map)
+        print(car.getPos())
 
-    def disconnect(self):
-        return super(DriverClient, self).disconnect()
+        camera.update(car)
+        #Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)
+        screen.fill((90,90,90))
+        for e in entities:
+            e.draw(screen, camera)
 
-def main():
-    driver = DriverClient()
-    driver.connect()
-    driver.ask_which_map()
-    map_file = driver.wait_for_data()
+        pygame.display.update()
 
-    try:
-        open(map_file, "r")
-    except:
-        driver.ask_for_map()
-        map_data = driver.wait_for_data()
-        open(map_file, "wb").write(map_data).close()
-
-    game_map = gameMap.GameMap(map_file)
-<<<<<<< HEAD
-    driverLoop.run(game_map)
-=======
->>>>>>> 84e280c05835a11d5737ff5e5b9f9e32d00a6f6d
-    driver.disconnect()
+    pygame.quit()
 
 if __name__ == "__main__":
     try:
-        main()
+        client.run(game_loop)
     except:
         traceback.print_exc()
-        input()

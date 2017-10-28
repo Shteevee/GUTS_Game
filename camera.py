@@ -22,4 +22,3 @@ class Camera(pygame.Surface):
         self.state.left = (-target.rect.left + self.HALF_WIDTH)
         self.state.top = (-target.rect.top + self.HALF_HEIGHT)
         # self.state = self.camera_func(self.state, target.rect)
-        print (self.state)
