@@ -1,5 +1,6 @@
 import pygame, sys, gameMap, car, camera
 from pygame.locals import *
+import settings
 
 def simple_camera(camera, target_rect):
     l, t, _, _ = target_rect
@@ -27,16 +28,10 @@ running = True
 while (running):
     clock.tick(30)
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if not hasattr(event,'key'):continue
-        down = event.type == KEYDOWN
-        #CHANGE THESE SCALARS TO CHANGE ACCELERATIONS AND ROTATION SPEED
-        if event.key==K_RIGHT: car.updateRight(down * -3)
-        elif event.key==K_LEFT: car.updateLeft(down * 3)
-        elif event.key==K_UP: car.updateUp(down * 0.5)
-        elif event.key==K_DOWN: car.updateDown(down * -0.3)
+    # car = car.Car(10,10)
+    # bg = gameMap.GameMap()
+    running = True
+    clock = pygame.time.Clock()
 
     car.drive(bg)
     print(car.getPos())
@@ -50,3 +45,17 @@ while (running):
 
     display.update()
 pygame.quit()
+>>>>>>> master
+
+        car.drive()
+        print(car.getPos())
+
+        Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)
+        screen.fill((90,90,90))
+        bg.draw(screen)
+        car.draw(screen)
+        display.flip()
+
+    pygame.quit()
+
+main()
