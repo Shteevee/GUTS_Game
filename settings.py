@@ -17,4 +17,4 @@ screen_width = 900
 screen_height = 640
 
 # game map
-game_map = "images/map1_resized.png"
+game_map = "images/map1.png"

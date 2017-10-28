@@ -14,7 +14,7 @@ def game_loop(game_map):
 
     pygame.display.init()
     screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-    car = c.Car(5200, 4800)
+    car = c.Car(800, 600)
     camera = cam.Camera(WIN_WIDTH, WIN_HEIGHT)
     entities = pygame.sprite.Group()
     entities.add(game_map)
@@ -27,13 +27,12 @@ def game_loop(game_map):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if not hasattr(event,'key'): continue
-            down = event.type == KEYDOWN
-            #CHANGE THESE SCALARS TO CHANGE ACCELERATIONS AND ROTATION SPEED
-            if event.key==K_RIGHT: car.updateRight(down * -2)
-            elif event.key==K_LEFT: car.updateLeft(down * 2)
-            elif event.key==K_UP: car.updateUp(down * 0.5)
-            elif event.key==K_DOWN: car.updateDown(down * -0.3)
+            elif event.type == KEYDOWN:
+                #CHANGE THESE SCALARS TO CHANGE ACCELERATIONS AND ROTATION SPEED
+                if event.key==K_RIGHT: car.updateRight(-2)
+                elif event.key==K_LEFT: car.updateLeft(2)
+                elif event.key==K_UP: car.updateUp(0.5)
+                elif event.key==K_DOWN: car.updateDown(-0.3)
 
         car.drive(game_map)
         print(car.getPos())
