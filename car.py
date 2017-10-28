@@ -14,9 +14,10 @@ Car class with following methods:
 
 Initialise with starting coords
 """
-class Car:
+class Car(pygame.sprite.Sprite):
     #initialise car instance
     def __init__(self, start_x, start_y):
+        pygame.sprite.Sprite.__init__(self)
         self.x = start_x
         self.y = start_y
         self.right = 0
@@ -24,16 +25,23 @@ class Car:
         self.up = 0
         self.down = 0
         self.speed = 0
-        self.maxSpeed = 10
-        self.maxReverse = -3
+        self.maxSpeed = 5
+        self.maxReverse = -1
         self.direction = 0
         self.rad = 0
-        self.image = None
+        self.image = pygame.image.load("images/car.png")
+
+    #Uses direction to rotate the image and send it to be drawn next update
+    def draw(self, screen):
+        rotated = pygame.transform.rotate(self.image, self.direction)
+        rect = rotated.get_rect()
+        rect.center = self.getPos()
+        screen.blit(rotated, rect)
 
     #Return a tuple of coords
     def getPos(self):
         return (self.x, self.y)
-    
+
     #Work out the speed, accelerate to cap
     def setSpeed(self):
         self.speed += (self.up+self.down)
