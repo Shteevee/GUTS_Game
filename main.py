@@ -6,7 +6,7 @@ clock = pygame.time.Clock()
 display = pygame.display
 display.init()
 screen = display.set_mode((900,640))
-car = car.Car(10,10)
+car = car.Car(650, 600)
 bg = gameMap.GameMap()
 running = True
 while (running):
@@ -23,7 +23,7 @@ while (running):
         elif event.key==K_UP: car.updateUp(down * 0.5)
         elif event.key==K_DOWN: car.updateDown(down * -0.3)
 
-    car.drive()
+    car.drive(bg)
     print(car.getPos())
 
     #Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)

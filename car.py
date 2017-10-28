@@ -3,6 +3,7 @@ from pygame.locals import *
 
 """
 Car class with following methods:
+    -draw
     -getPos
     -setSpeed
     -setRotate
@@ -31,23 +32,24 @@ class Car(pygame.sprite.Sprite):
         self.rad = 0
         self.image = pygame.image.load("images/car.png")
         self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
 
     #Uses direction to rotate the image and send it to be drawn next update
     def draw(self, screen):
         rotated = pygame.transform.rotate(self.image, self.direction)
-        rect = rotated.get_rect()
-        rect.center = self.getPos()
-        screen.blit(rotated, rect)
+        self.rect = rotated.get_rect()
+        self.rect.center = self.getPos()
+        screen.blit(rotated, self.rect)
 
     #Return a tuple of coords
     def getPos(self):
         return (self.x, self.y)
 
     #call all driving methods
-    def drive(self):
+    def drive(self, bg):
         self.setSpeed()
         self.setRotate()
-        self.move()
+        self.move(bg)
 
     #Work out the speed, accelerate to cap
     def setSpeed(self):
@@ -61,9 +63,10 @@ class Car(pygame.sprite.Sprite):
         self.rad = self.direction * (math.pi/180)
 
     #Take the angle and speed and move the car
-    def move(self):
-        self.x += -self.speed * math.sin(self.rad)
-        self.y += -self.speed * math.cos(self.rad)
+    def move(self, gameMap):
+        if pygame.sprite.collide_mask(self, gameMap) == None:
+            self.x += -self.speed * math.sin(self.rad)
+            self.y += -self.speed * math.cos(self.rad)
 
     def updateRight(self, r):
         self.right = r
