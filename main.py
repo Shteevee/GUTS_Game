@@ -45,6 +45,7 @@ while (running):
 
     display.update()
 pygame.quit()
+>>>>>>> master
 
         car.drive()
         print(car.getPos())
