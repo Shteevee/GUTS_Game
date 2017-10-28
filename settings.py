@@ -1,5 +1,6 @@
 # connection settings
-ip = "192.168.137.1"
+# ip = "192.168.137.1"
+ip = "localhost"
 port = 6317
 
 # server settings
