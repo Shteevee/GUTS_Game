@@ -1,21 +1,56 @@
 from lib.Mastermind import *
 import settings
+import traceback
+import gameMap
+import driverLoop
 
-def start_driver_client():
-    client = MastermindClientTCP(settings.timeout_connect,
-                                settings.timeout_receive)
+class DriverClient(MastermindClientTCP):
+    def __init__(self):
+        MastermindClientTCP.__init__(self,
+                                    settings.timeout_connect,
+                                    settings.timeout_receive)
+
+    def connect(self):
+        print("Client connecting on \"" + settings.ip +
+                "\", port " + str(settings.port) + " . . .")
+
+        try:
+            super(DriverClient, self).connect(settings.ip, settings.port)
+        except MastermindError:
+            print("Server is not running!")
+
+    def wait_for_data(self):
+        return super(DriverClient, self).receive(True)
+
+    def ask_which_map(self):
+        return super(DriverClient, self).send("which_map")
+
+    def ask_for_map(self):
+        return super(DriverClient, self).send("send_map")
+
+    def disconnect(self):
+        return super(DriverClient, self).disconnect()
+
+def main():
+    driver = DriverClient()
+    driver.connect()
+    driver.ask_which_map()
+    map_file = driver.wait_for_data()
 
     try:
-        print("Client connecting on \""+settings.ip+"\", port "+str(settings.port)+" . . .")
-        client.connect(settings.ip,settings.port)
-    except MastermindError:
-        print("No server found; starting server!")
-        # server = chat_server.ServerChat()
-        # server.connect(server_ip,port)
-        # server.accepting_allow()
-        #
-        # print("Client connecting on \""+client_ip+"\", port "+str(port)+" . . .")
-        # client.connect(client_ip,port)
-    print("Client connected!")
-    client.send("WTF", None)
-    client.disconnect()
+        open(map_file, "r")
+    except:
+        driver.ask_for_map()
+        map_data = driver.wait_for_data()
+        open(map_file, "wb").write(map_data).close()
+
+    game_map = gameMap.GameMap(map_file)
+    driverLoop.run(game_map)
+    driver.disconnect()
+
+if __name__ == "__main__":
+    try:
+        main()
+    except:
+        traceback.print_exc()
+        input()

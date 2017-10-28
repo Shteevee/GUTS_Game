@@ -1,5 +1,5 @@
 # connection settings
-ip = "localhost"
+ip = "192.168.137.1"
 port = 6317
 
 # server settings
@@ -13,4 +13,5 @@ timeout_receive = None
 
 # other settings
 scrollback = 100
-screen_size = (800, 600)
+screen_width = 900
+screen_height = 640
