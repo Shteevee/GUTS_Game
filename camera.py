@@ -16,6 +16,7 @@ class Camera(object):
     def apply(self, target):
         return target.rect.move(self.state.topleft)
 
+    #set the top left point of the camera to draw from
     def update(self, target):
         self.state.left = -target.rect.left + self.HALF_WIDTH
         self.state.top = -target.rect.top + self.HALF_HEIGHT
