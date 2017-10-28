@@ -13,5 +13,8 @@ timeout_connect = None
 timeout_receive = None
 
 # other settings
-screen_width = 800
-screen_height = 600
+screen_width = 900
+screen_height = 640
+
+# game map
+game_map = "images/map1_resized.png"

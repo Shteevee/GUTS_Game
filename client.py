@@ -1,6 +1,7 @@
 from lib.Mastermind import *
 import settings
 import gameMap
+import traceback
 
 class GameClient(MastermindClientTCP):
     def __init__(self):
@@ -43,7 +44,7 @@ def run(game_loop):
 
     try:
         game_loop(game_map)
-    except:
         client.disconnect()
-        
-    client.disconnect()
+    except:
+        traceback.print_exc()
+        client.disconnect()

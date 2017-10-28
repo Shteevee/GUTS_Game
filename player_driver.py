@@ -1,6 +1,7 @@
 import traceback
 import client
 import pygame
+from pygame.locals import *
 import settings
 import car as c
 import camera as cam
@@ -43,8 +44,8 @@ def game_loop(game_map):
         for e in entities:
             e.draw(screen, camera)
 
-        display.update()
-        
+        pygame.display.update()
+
     pygame.quit()
 
 if __name__ == "__main__":
