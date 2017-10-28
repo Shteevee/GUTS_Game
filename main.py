@@ -1,4 +1,4 @@
-import pygame, sys, screen, car
+import pygame, sys, gameMap, car
 from pygame.locals import *
 
 clock = pygame.time.Clock()
@@ -7,7 +7,7 @@ display = pygame.display
 display.init()
 screen = display.set_mode((900,640))
 car = car.Car(10,10)
-
+bg = gameMap.GameMap()
 running = True
 while (running):
     clock.tick(30)
@@ -23,13 +23,12 @@ while (running):
         elif event.key==K_UP: car.updateUp(down * 0.5)
         elif event.key==K_DOWN: car.updateDown(down * -0.3)
 
-    car.setSpeed()
-    car.setRotate()
-    car.move()
+    car.drive()
     print(car.getPos())
 
     #Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)
-    screen.fill((0,0,0))
+    screen.fill((90,90,90))
+    bg.draw(screen)
     car.draw(screen)
     display.flip()
 pygame.quit()

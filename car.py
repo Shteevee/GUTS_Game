@@ -30,6 +30,7 @@ class Car(pygame.sprite.Sprite):
         self.direction = 0
         self.rad = 0
         self.image = pygame.image.load("images/car.png")
+        self.mask = pygame.mask.from_surface(self.image)
 
     #Uses direction to rotate the image and send it to be drawn next update
     def draw(self, screen):
@@ -41,6 +42,12 @@ class Car(pygame.sprite.Sprite):
     #Return a tuple of coords
     def getPos(self):
         return (self.x, self.y)
+
+    #call all driving methods
+    def drive(self):
+        self.setSpeed()
+        self.setRotate()
+        self.move()
 
     #Work out the speed, accelerate to cap
     def setSpeed(self):
