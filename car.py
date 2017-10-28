@@ -66,9 +66,13 @@ class Car(pygame.sprite.Sprite):
 
     #Take the angle and speed and move the car
     def move(self, gameMap):
-        if pygame.sprite.collide_mask(self, gameMap) == None:
+        if not pygame.sprite.collide_mask(self, gameMap):
             self.x += -self.speed * math.sin(self.rad)
             self.y += -self.speed * math.cos(self.rad)
+        else:
+            self.x -= -self.speed * math.sin(self.rad)
+            self.y -= -self.speed * math.cos(self.rad)
+            self.speed = -0.1
 
     def updateRight(self, r):
         self.right = r
