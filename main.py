@@ -45,17 +45,3 @@ while (running):
 
     display.update()
 pygame.quit()
->>>>>>> master
-
-        car.drive()
-        print(car.getPos())
-
-        Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)
-        screen.fill((90,90,90))
-        bg.draw(screen)
-        car.draw(screen)
-        display.flip()
-
-    pygame.quit()
-
-main()
