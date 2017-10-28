@@ -2,6 +2,10 @@ from lib.Mastermind import *
 import settings
 import traceback
 import gameMap
+<<<<<<< HEAD
+import driverLoop
+=======
+>>>>>>> 84e280c05835a11d5737ff5e5b9f9e32d00a6f6d
 
 class DriverClient(MastermindClientTCP):
     def __init__(self):
@@ -44,6 +48,10 @@ def main():
         open(map_file, "wb").write(map_data).close()
 
     game_map = gameMap.GameMap(map_file)
+<<<<<<< HEAD
+    driverLoop.run(game_map)
+=======
+>>>>>>> 84e280c05835a11d5737ff5e5b9f9e32d00a6f6d
     driver.disconnect()
 
 if __name__ == "__main__":
