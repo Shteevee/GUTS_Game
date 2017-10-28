@@ -15,6 +15,8 @@ timeout_receive = None
 # other settings
 screen_width = 900
 screen_height = 640
+car_x = 3055
+car_y = 2306
 
 # game map
 game_map = "images/map1.png"

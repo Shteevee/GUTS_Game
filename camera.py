@@ -11,8 +11,8 @@ class Camera(pygame.Surface):
         pygame.surface.__init__('self', Rect(0,0,width,height))
         self.camera_func = simple_camera
         self.state = Rect(0,0,width, height)
-        self.HALF_WIDTH = int(width/2.75)
-        self.HALF_HEIGHT = int(height/5)
+        self.HALF_WIDTH = int(width / 2.75)
+        self.HALF_HEIGHT = int(height / 5)
 
     def apply(self, target):
         return target.rect.move(self.state.topleft)
@@ -22,3 +22,5 @@ class Camera(pygame.Surface):
         self.state.left = (-target.rect.left + self.HALF_WIDTH)
         self.state.top = (-target.rect.top + self.HALF_HEIGHT)
         # self.state = self.camera_func(self.state, target.rect)
+
+    #def get_sector(self, )
