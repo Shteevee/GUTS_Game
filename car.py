@@ -30,18 +30,18 @@ class Car(pygame.sprite.Sprite):
         self.maxReverse = -1
         self.direction = 0
         self.rad = 0
-        self.image = pygame.image.load("images/car.png")
+        self.image = pygame.transform.scale2x(pygame.transform.scale2x(pygame.transform.scale2x(pygame.image.load("images/car.png"))))
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
     #Uses direction to rotate the image and send it to be drawn next update
     #also update car mask to new rotation
-    def draw(self, screen):
+    def draw(self, screen, camera):
         rotated = pygame.transform.rotate(self.image, self.direction)
         self.rect = rotated.get_rect()
         self.rect.center = self.getPos()
         self.mask = pygame.mask.from_surface(rotated)
-        screen.blit(rotated, self.rect)
+        screen.blit(rotated, camera.apply(self))
 
     #Return a tuple of coords
     def getPos(self):
