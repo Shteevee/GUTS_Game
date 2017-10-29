@@ -31,6 +31,7 @@ class Car(pygame.sprite.Sprite):
         self.direction = 0
         self.rad = 0
         self.rotated = None
+        self.scale = 0
         self.image = pygame.image.load("images/car.png")
         self.rect = self.image.get_rect()
 
@@ -52,6 +53,8 @@ class Car(pygame.sprite.Sprite):
     def scale(self, scale_factor):
         for i in range(0, scale_factor, 1):
             self.image = pygame.transform.scale2x(self.image)
+
+        self.scale = scale_factor
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
