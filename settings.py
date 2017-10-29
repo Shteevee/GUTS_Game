@@ -19,4 +19,4 @@ car_x = 350*16
 car_y = 600*16
 
 # game map
-game_map = "images/map1_resized.png"
+game_map = "images/map1.png"

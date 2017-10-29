@@ -22,6 +22,8 @@ def game_loop(client, game_map):
     entities.add(game_map)
     entities.add(car)
 
+    game_map.load_sector(car.x, car.y)
+
     running = True
     update = 0
     while (running):
@@ -30,16 +32,15 @@ def game_loop(client, game_map):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            if not hasattr(event,'key'): continue
-            down = event.type == KEYDOWN
-            #CHANGE THESE SCALARS TO CHANGE ACCELERATIONS AND ROTATION SPEED
-            if event.key==K_RIGHT: car.updateRight(down * -2)
-            elif event.key==K_LEFT: car.updateLeft(down * 2)
-            elif event.key==K_UP: car.updateUp(down * 0.5)
-            elif event.key==K_DOWN: car.updateDown(down * -0.3)
+            elif event.type == KEYDOWN:
+                #CHANGE THESE SCALARS TO CHANGE ACCELERATIONS AND ROTATION SPEED
+                if event.key==K_RIGHT: car.updateRight(-2)
+                elif event.key==K_LEFT: car.updateLeft(2)
+                elif event.key==K_UP: car.updateUp(0.5)
+                elif event.key==K_DOWN: car.updateDown(-0.3)
 
         car.drive(game_map)
-
+        
         client.send_metrics(car.x, car.y, car.direction)
         print("X: " + str(car.x) + "   Y: " + str(car.y) + "    Direction: " + str(car.direction))
 
