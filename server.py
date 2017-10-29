@@ -12,6 +12,7 @@ class GameServer(MastermindServerTCP):
                                     settings.time_connection_timeout)
         self.driver_connected = False
         self.navigator_connected = False
+        self.car_position = (settings.car_x, settings.car_y)
 
     def log_message(self, msg):
         timestamp = strftime("%H:%M:%S", localtime())
@@ -39,11 +40,18 @@ class GameServer(MastermindServerTCP):
             self.log_message(str(client.address) + " asked which map")
             self.callback_client_send(client, settings.game_map)
 
-        if data == "send_map":
+        elif data == "send_map":
             self.log_message(str(client.address) + " asked for the map")
             map_data = open(settings.game_map, "rb").read()
             self.callback_client_send(client, map_data)
 
+        elif data == "get_position":
+            self.log_message(str(client.address) + " asked for car position, sending " + str(self.car_position))
+            self.callback_client_send(client, self.car_position)
+
+        elif type(data) == tuple:
+            self.log_message(str(client.address) + " sent car position " + str(data))
+            self.car_position = data
         return super(GameServer, self).callback_client_handle(client, data)
 
     def callback_client_send(self, client, data):

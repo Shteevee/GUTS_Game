@@ -31,9 +31,7 @@ class Car(pygame.sprite.Sprite):
         self.direction = 0
         self.rad = 0
         self.rotated = None
-        self.image = pygame.transform.scale2x(
-                        pygame.transform.scale2x(pygame.image.load("images/car.png")))
-        self.mask = pygame.mask.from_surface(self.image)
+        self.image = pygame.image.load("images/car.png")
         self.rect = self.image.get_rect()
 
     #Uses direction to rotate the image and send it to be drawn next update
@@ -44,6 +42,18 @@ class Car(pygame.sprite.Sprite):
         self.rect.center = self.getPos()
         self.mask = pygame.mask.from_surface(self.rotated)
         screen.blit(self.rotated, camera.apply(self))
+
+    def drawNav(self, screen):
+        screen.blit(self.image, self.image.get_rect())
+
+    def setPos(self, position):
+        self.x, self.y = position
+
+    def scale(self, scale_factor):
+        for i in range(0, scale_factor, 1):
+            self.image = pygame.transform.scale2x(self.image)
+        self.mask = pygame.mask.from_surface(self.image)
+        self.rect = self.image.get_rect()
 
     #Return a tuple of coords
     def getPos(self):

@@ -27,6 +27,12 @@ class GameClient(MastermindClientTCP):
     def ask_for_map(self):
         return super(GameClient, self).send("send_map")
 
+    def get_position(self):
+        return super(GameClient, self).send("get_position")
+
+    def send_position(self, position):
+        return super(GameClient, self).send(position)
+
 def run(game_loop):
     client = GameClient()
     client.connect()
@@ -43,7 +49,7 @@ def run(game_loop):
     game_map = gameMap.GameMap(map_file)
 
     try:
-        game_loop(game_map)
+        game_loop(client, game_map)
         client.disconnect()
     except:
         traceback.print_exc()

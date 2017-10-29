@@ -6,7 +6,7 @@ import settings
 import car as c
 import camera as cam
 
-def game_loop(game_map):
+def game_loop(client, game_map):
     clock = pygame.time.Clock()
 
     WIN_WIDTH = settings.screen_width
@@ -16,11 +16,14 @@ def game_loop(game_map):
     screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
     car = c.Car(settings.car_x, settings.car_y)
     camera = cam.Camera(WIN_WIDTH, WIN_HEIGHT)
+    game_map.scale(4)
+    car.scale(2)
     entities = pygame.sprite.Group()
     entities.add(game_map)
     entities.add(car)
 
     running = True
+    update = 0
     while (running):
         clock.tick(30)
 
@@ -36,7 +39,11 @@ def game_loop(game_map):
             elif event.key==K_DOWN: car.updateDown(down * -0.3)
 
         car.drive(game_map)
-        print(car.getPos())
+
+        update += 1
+        if update >= 30:
+            update = 0
+            client.send_position(car.getPos())
 
         camera.update(car)
         #Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)
