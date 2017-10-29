@@ -40,10 +40,8 @@ def game_loop(client, game_map):
 
         car.drive(game_map)
 
-        update += 1
-        if update >= 30:
-            update = 0
-            client.send_position(car.getPos())
+        client.send_metrics(car.x, car.y, car.direction)
+        print("X: " + str(car.x) + "   Y: " + str(car.y) + "    Direction: " + str(car.direction))
 
         camera.update(car)
         #Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)

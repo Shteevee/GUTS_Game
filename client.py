@@ -27,11 +27,11 @@ class GameClient(MastermindClientTCP):
     def ask_for_map(self):
         return super(GameClient, self).send("send_map")
 
-    def get_position(self):
-        return super(GameClient, self).send("get_position")
+    def get_metrics(self):
+        return super(GameClient, self).send("get_metrics")
 
-    def send_position(self, position):
-        return super(GameClient, self).send(position)
+    def send_metrics(self, x, y, direction):
+        return super(GameClient, self).send((x, y, direction))
 
 def run(game_loop):
     client = GameClient()
