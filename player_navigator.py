@@ -32,12 +32,12 @@ def game_loop(client, game_map):
         client.get_position()
         x, y = client.wait_for_data()
         car_position = (x / 16, y / 16)
-        car.setPos(car_position)
+        print(car_position)
 
         #Draw the images (KEEP SCREEN INFRONT OF ANYTHING DRAWN ON TOP)
         screen.fill((90,90,90))
-        car.drawNav(screen)
         game_map.drawNav(screen)
+        car.drawNav(screen, car_position)
 
         pygame.display.update()
 

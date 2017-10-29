@@ -43,11 +43,11 @@ class Car(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.rotated)
         screen.blit(self.rotated, camera.apply(self))
 
-    def drawNav(self, screen):
-        screen.blit(self.image, self.image.get_rect())
-
-    def setPos(self, position):
-        self.x, self.y = position
+    def drawNav(self, screen, position):
+        x, y = position
+        car_rect = self.image.get_rect()
+        car_rect.center = (x,y)
+        screen.blit(self.image, car_rect)
 
     def scale(self, scale_factor):
         for i in range(0, scale_factor, 1):
