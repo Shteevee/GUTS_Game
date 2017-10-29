@@ -14,7 +14,7 @@ def game_loop(game_map):
 
     pygame.display.init()
     screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-    car = c.Car(5200, 4800)
+    car = c.Car(settings.car_x, settings.car_y)
     camera = cam.Camera(WIN_WIDTH, WIN_HEIGHT)
     entities = pygame.sprite.Group()
     entities.add(game_map)

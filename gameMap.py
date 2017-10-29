@@ -7,7 +7,8 @@ class GameMap(pygame.sprite.Sprite):
         self.image = pygame.transform.scale2x(
                         pygame.transform.scale2x(
                             pygame.transform.scale2x(
-                                pygame.image.load(map_image))))
+                                pygame.transform.scale2x(
+                                    pygame.image.load(map_image)))))
         self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
 
